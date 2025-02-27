@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+      /*
+        $.get()
+        :HTTP get방식을 통해 서버로부터 데이터를 받을때 사용하는 함수.
+        load() 함수와는 다르게 앞부분에 셀렉터가 들어가지 않는다.
+        형식: $.get(url,param,callback)
+        -url : 데이터를 요청할 서버의 경로 및 파일명
+        -param : 서버로 전송할 파라미터로 JSON 형식으로 기술
+        -callback : 요청에 성공했을때 실행되는 콜백함수.
+        파라미터와 콜백함수는 필수사항이 아니므로 생략할 수 있다.*/
+
+      $(function () {
+        $.get("./common/02Quiz.json", function (data) {
+          console.log(data);
+          var html = "";
+          let cnt = 0;
+          $.each(data, function (index, data) {
+            cnt += 1;
+            /*
+            "albumId": 1,
+            "id": 1,
+            "title": "accusamus beatae ad facilis cum similique qui sunt",
+            "url": "https://via.placeholder.com/600/92c952",
+            "thumbnailUrl": "https://via.placeholder.com/150/92c952"
+            */
+            html += "<tr>";
+            html += "<td>" + cnt + "</td>";
+            html += "<td>" + data.title + "</td>";
+            html += "<td><img src='" + data.url + "'></td>";
+            html += "<td><img src='" + data.thumbnailUrl + "'></td>";
+            html += "</tr>";
+          });
+          $("#displayTable").append(html);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h2>$.get() 메소드 사용하기</h2>
+
+    <button id="btnJSON">웹에서 JSON 데이터 읽어오기</button>
+    <table border="1" id="displayTable">
+      <tr>
+        <th>no</th>
+        <th>title</th>
+        <th>photo</th>
+      </tr>
+    </table>
+  </body>
+</html>

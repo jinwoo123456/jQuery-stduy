@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+      /*
+        animate(인수1,인수2)
+        인수1 : 효과를 부여한다. 2가지 이상을 부여하기 위해 주로 JS객체를
+            사용한다.
+        인수2: 효과를 적용할 시간을 설정한다. 밀리세컨즈 단위나 slow,fast
+            문자열을 사용한다.
+        */
+      $(function () {
+        $("#go").click(function () {
+          /*좌측 여백은 100px씩 증가, 투명도 적용 높이는 10px씩 증가한다.
+            즉 박스의 높이가 커지면서 우측으로 이동한다.*/
+          $("div").animate(
+            {
+              left: "+=100px",
+              opacity: 0.2,
+              height: "+=10px",
+            },
+            "slow"
+          );
+        });
+        //애니메이션 일시중지
+        $("#stop").click(function () {
+          $("div").stop();
+        });
+        /* 애니메이션 적용 시간을 부여할떄는 문자열이 아닌 정수형태로
+        적용해야함.따라서 더블쿼테이션으 제거함.*/
+        $("#back").click(function () {
+          $("div").animate(
+            {
+              left: "-=100px",
+              opacity: 1,
+              height: "-=10px",
+            },
+            2000
+          );
+        });
+        /*
+        4가지 애니메이션을 도잇에 적용. 패딩,마진,배경 등 여러가지 속성에 대해
+        애니메이션을 적용할 수 있다.
+        */
+        $("#start").click(function () {
+          $("div").animate(
+            {
+              height: "300px",
+              opacity: 0.4,
+            },
+            "slow"
+          );
+          $("div").animate(
+            {
+              width: "300px",
+              opacity: 0.8,
+            },
+            "slow"
+          );
+          $("div").animate(
+            {
+              height: "100px",
+              opacity: 0.4,
+            },
+            "slow"
+          );
+          $("div").animate(
+            {
+              width: "100px",
+              opacity: 0.8,
+            },
+            "slow"
+          );
+        });
+      });
+    </script>
+    <style>
+      /* 상자에 애니메이션 효과를 부여하려면 절대위치를 변경할 수 있어야 
+        하므로 position속성을 absolute 혹은 relative로 부여해야한다.
+        디폴트 값인 static에서는 위치를 변경할 수 없다.*/
+      div {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        top: 100px;
+        left: 50px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>animate() / stop() 메소드</h2>
+
+    <button id="go">Go</button>
+    <button id="stop">Stop</button>
+    <button id="back">Back</button>
+    <button id="start">Animation Start</button>
+
+    <div>나는<br />움직인다</div>
+  </body>
+</html>

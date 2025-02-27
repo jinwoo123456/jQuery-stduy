@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.0.js"></script>
+    <script>
+      /*
+        jQuery의 Entry point(출발점)을 아래 4가지 방법을 통해 생성할 수 있다.
+        HTML 문서의 load가 완료된 후 실행한다는 의미를 가지고 있다.
+        j*/
+      //방법1
+      // $(document).ready(function(){
+      //   alert("jQuery 시작하기1");
+      // });
+
+      //방법2
+      // $().ready(function(){
+      //   alert('jQuery 시작하기2');
+      // });
+
+      //방법3
+      // jQuery(function(){
+      //   alert("jQuery 시작하기3");
+      // });
+
+      //방법4
+      $(function () {
+        alert("jQuery 시작하기4");
+        console.log("jQuery Entry point로 가장많이 사용됨");
+      });
+    </script>
+  </head>
+  <body>
+    <h2>jQuery 시작하기</h2>
+    <p>4가지 방법을 통해 jQuery의 Entry point를 만들수있다.</p>
+    <script>
+      alert("HTML 문서의 끄웃~~!");
+    </script>
+  </body>
+</html>

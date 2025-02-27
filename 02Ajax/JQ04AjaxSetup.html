@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=
+    , initial-scale=1.0"
+    />
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+      $(function () {
+        /*
+        :동일하게 반복되는 $.ajax()의 인자를 설정하여 반복을 생략할 수 있다.
+        type,dataType등 기본적으로 사용되는 인자들을 묶어주면 중복되는 코드를
+        줄일 수 있다.
+        */
+        //요청 URL과 콜백데이터 타입을 먼저 setup한다.
+        $.ajaxSetup({
+          url: "./common/04JSONData.json",
+          dataType: "json",
+        });
+        /* 앞에서 setup한 2개의 항목을 제외하고 나머지 인자에 대해서만
+        정의한다. 즉 ajaxSetup은 ajax의 함수의 부모역할을 한다고 보면 된다.*/
+        $.ajax({
+          //요청 성공시 호출되는 콜백함수 정의
+          success: function (responseData) {
+            $.each(responseData, function (index, data) {
+              console.log(data);
+              var html = "";
+              /* JSON 배열이 콜백되므로 이를 통해 반복한다.*/
+              $.each(data, function (index, data) {
+                //현재 루프의 인덱스와 객체를 출력
+                console.log(index, data);
+                //JSON객체를 파싱할떄는 .과 [] 두가지 모두 사용할 수 있다.
+                html += "<tr>";
+                html += "<td>" + (index + 1) + "</td>";
+                html += "<td>" + data.name + "</td>";
+                html += "<td><img src='" + data["age"] + "'></td>";
+                html += "<td><img src='" + data["주소"] + "'></td>";
+                html += "</tr>";
+              });
+              //테이블 내부의 <tr>태그 뒷부분에 컨텐츠를 추가한다.
+              $("#tbl1").append(html);
+            });
+          },
+          //실패시의 콜백함수는 외부의 JS함수로 정의
+          error: errorFunc,
+        });
+      });
+      function errorFunc(errData) {
+        alert("에러발생" + errData.state + errData.statusText);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>$.ajaxSetup() 메소드 사용하기</h2>
+      <table border="1" id="tbl1">
+        <tr>
+          <td>NO</td>
+          <td>이름</td>
+          <td>나이</td>
+          <td>출신지역</td>
+        </tr>
+      </table>
+      <button id="btn">JSON데이터 가져오기</button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+      /*each():셀럭터를 통행 ㅓㄷ어온 엘리먼트의 갯수만큼 자동으로 반복해서
+        실행시켜주는 함수.반복시 index는 0부터 증가하게되고, 필요없는 경우
+        생략할 수 있다.
+        attr() : 엘리먼트의 속성을 부여하거나 속성을 읽어올떄 사용하는 함수.
+        id,class,name 과 같은 속성들을 부여할 수 있다.*/
+      $(function () {
+        $("#btn1").click(function () {
+          //div 태그 선택자로 현재 페이지의 모든 div를 선택한 후 반복
+          $("div").each(function (index) {
+            /*
+            각 div태그에 id와 style 속성을 부여한다. id는 index를 사용하므로
+            div 0~2까지 부여되고 , style의 경우 모두 동일한 속성값이 부여된다.
+            */
+            $(this).attr({
+              id: +index,
+              style:
+                "color:red; border:2px solid blue;width:100px;height:100px;",
+            });
+          });
+        });
+
+        /*text() 함수를 통해 태그 사이의 내용을 읽어와서 alert()로 출력한다.
+        단 , btn1을 눌러 id 속성값을 부여하기 전에는 버튼을 눌러도 아무런 값도 출력되지
+        않는다.
+        */
+        $("#btn2").click(function () {
+          alert($("div").text());
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h2>each() 메소드</h2>
+
+    <div>index:0 -> div1</div>
+    <div>index:1 -> div2</div>
+    <div>index:2 -> div3</div>
+
+    <button id="btn1">div에 style적용하기</button>
+    <button id="btn2">index1의 text()</button>
+  </body>
+</html>

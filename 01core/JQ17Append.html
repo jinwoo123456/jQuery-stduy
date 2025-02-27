@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+      $(function () {
+        $("#btn").click(function () {
+          //입력한 행과 열의 값을 얻어옴
+          var row = $("#row").val();
+          var col = $("#col").val();
+
+          //크기에 맞는 테이블을 생성
+          var table = "<table border='1'>";
+          for (var i = 1; i <= row; i++) {
+            table += "<tr>";
+
+            for (var j = 1; j <= col; j++) {
+              table += "<td>행" + i + "열" + j + "</td>";
+            }
+            table += "</tr>";
+          }
+          table += "</table>";
+          /*
+          appeend() / prependTo()
+          :선택한 엘리먼트의 '자식'으로 새로운 컨텐츠를 추가한다.
+          기존의 내용이 유지되는 특징이 있고, 추가되는 위치만 앞/뒤로
+          다르다.
+          */
+          // $("#appendDisplay").append(table);
+          //$(table).prependTo("#appendDisplay");
+          //$('#appendDisplay').append(table);
+          //$('#appendDisplay').prepend(table);
+          //$('#appendDisplay').html(table);
+
+          /*선택한 엘리먼트의 앞.딧부분에 컨텐츠를 추가한다.
+          동일한 depth즉 '동위'로 추가된다. 기존 컨텐츠를 유지하는것은
+          apeend()와 동일하다.*/
+
+          /*
+          html() 함수는 기존 컨텐츠를 제거한 후 새로운 컨텐츠로 교체한다.
+          즉 기존의 내용이 유지되지 않는다.*/
+          $("#appendDisplay").after(table);
+          $("#appendDisplay").before(table);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h2>append() 메소드</h2>
+    <!--input태그의 number 타입은 마우스로 업 다운 할수있는 스핀박스가
+    제공된다.-->
+    <input type="number" name="" id="row" value="2" />행
+    <input type="number" name="" id="col" value="2" />열
+    <input type="button" id="btn" value="동적테이블추가" />
+    <div id="appendDisplay" style="border: 1px solid blue; padding: 10px">
+      <!-- prependTo()함수로 추가되는 위치 -->
+      여기에 생성됨
+      <!--append()함수로 추가되는 위치 -->
+    </div>
+    <!--after()로 추가-->
+  </body>
+</html>

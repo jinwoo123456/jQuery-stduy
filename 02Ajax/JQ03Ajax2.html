@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      /*
+        $.ajax() : jQuery에서 사용되는 ajax 관련 함수로 load(), get(), post() 
+        함수의 모든 기능을 가지고 있다. 그러므로 가장 활용빈도가 높다.
+        별도의 인수가 존재하지 않고, JSON 형태의 인수 하나만 존재한다.
+
+        인수의 속성
+        -url :  요청할 서버의 경로 혹은 URL
+        -type : 전송방식으로 get,post등
+        -dataType : 콜백데이터의 형색. json,xml,script,text
+        -contentType : 전송방식에 따른 컩텐츠 타입 지정
+        -data : 요청시 전송할 파라미터로 JSON객체 표현
+        -success : 요청이 성공했을때 실행되는 콜백함수
+        -error : 요청이 실패했을때 실행되는 콜백함수
+
+        */
+      $(function () {
+        $("#ajaxBtn").click(function () {
+          $.ajax({
+            url: "./common/03JsData.js",
+            type: "get",
+            dataType: "script",
+            success: successFunc,
+            error: errorFunc,
+          });
+        });
+      });
+      function successFunc(data) {
+        console.log(data);
+        $("#displayTable").append(responseData);
+      }
+      function errorFunc() {
+        console.log("에러발생", errData.state, errData.statusText);
+      }
+    </script>
+  </head>
+  <body>
+    <h2>$.ajax() 메소드 사용하기</h2>
+    <button id="ajaxBtn">ajax()메소드 실행하기</button>
+    <div id="ajaxDisplay">ajax결과를 여기에 디스플레이</div>
+  </body>
+</html>

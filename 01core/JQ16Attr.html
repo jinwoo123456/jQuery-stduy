@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+      /*
+        attr() : 선택한 DOM에 속성을 부여하거나 얻어올 때 사ㅓ용한다.
+        방법1 : (셀렉터).attr(속성명,값);
+        => 메서드 체인을 통해 여러개의 속성을 부여할 수 있다.
+        방법2: (셀릭터).attr({속성명:값});
+        => JS객체 사용으로 2개 이상의 속성을 부여할 수 있다.
+        removeAttr() :속성을 제거할때 사용.
+        */
+      $(function () {
+        /*
+        js에서 사용했던 모든 이벤트와 동일한 이름이 함수가 JQuery에 정의되어 있으므로
+        아래와 같이 사용할 수 있다.
+        */
+        $("#btn1").click(function () {
+          //btn1을 클릭하면 attr()함수를 메서드체인 형태로 호출한다.
+          $("#viewImg")
+            .attr("src", "../images/amazon.png")
+            .attr("width", "300px");
+        });
+
+        $("#btn2").click(function () {
+          //btn2에 마우스를 올리면 아래와 같은 속성이 부여된다.
+          $("#viewImg")
+            .attr("src", "../images/naver.png")
+            .attr("width", function () {
+              return "200px;";
+            });
+          /*값 설정시 익명함수를 통해 조건문,반복문 등을 사용하여 
+            프러그래밍 요소를 추가할 수 있다.*/
+        });
+
+        $("#btn3").mouseout(function () {
+          /*마우스를 올렸다가 내렸을때 실행된다 .JSON 객체로 2개 이상의
+            값을 부여한다.*/
+          $("#viewImg").attr({ src: "../images/chosun.png", width: "400px" });
+        });
+        //속성 제거하기
+        $("#btnDel").click(function () {
+          // <select>에서 선택한 값(value)을 읽어온다.
+          var attrName = $("#attrSelect option:selected").val();
+          $("#viewImg").removeAttr(attrName);
+          alert(attrName + "속성이 제거되었습니다.");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h2>attr(), removeAttr() 메서드</h2>
+
+    <div>
+      <img src="../images/amazon.png" id="viewImg" />
+    </div>
+
+    <div>
+      <button id="btn1">amazon.png이미지로변경</button>
+      <button id="btn2">naver.png이미지로변경</button>
+      <button id="btn3">chosun.png이미지로변경</button>
+    </div>
+
+    <div>
+      <h3>위 변경 이미지를 먼저 누른후 속성제거 버튼을 누르시오</h3>
+      <select id="attrSelect">
+        <option value="src">src속성</option>
+        <option value="width">width속성</option>
+      </select>
+      <button id="btnDel">속성제거</button>
+    </div>
+  </body>
+</html>

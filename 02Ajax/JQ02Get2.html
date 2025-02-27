@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js
+    "></script>
+    <script>
+      $(function () {
+        $("#btnJSON").click(function () {
+          //요청 URL은 내부의 json파일을 사용
+          $.get(
+            "./common/02Contact.json",
+            //파라미터는 필요없으므로 생략 가능.여기서는 형식만 확인하는 용도
+            {},
+            //콜백함수 : 요청에 성공하면 rData로 JSON파일의 내용이 콜백됨.
+            function (rData, status, xhr) {
+              //2개의 매개변수는 생략해도 무방함.
+              console.log(status, xhr);
+              /*파라미터는 필요없으므로 생략할 수 있다 .여기서는 형식만 
+            확인하는 용도*/
+              let str = "";
+              /*
+              each()의 두가지 형식
+              1.$(셀렉터).each(콜백함수(index,data){});
+                jQuery의 기본사용법으로 셀렉터뒤에 함수를 호출
+              2.$.each(데이터,콜백함수(index,data){});
+                셀렉터로 엘리먼트를 선택하는 대신 비동기함수에서 콜백받은
+                데이터를 기반으로 콜백함수를 반복 호출한다.
+              */
+              $.each(rData.contacts, function (index, data) {
+                console.log(index, data);
+                //배열 내부의 각 객체를 파싱해서 tr태그로 만들어준다.
+                str +=
+                  "<tr>" +
+                  "<td>" +
+                  data.no +
+                  "</td>" +
+                  "<td>" +
+                  data.name +
+                  "</td>" +
+                  "<td>" +
+                  data.tel +
+                  "</td>" +
+                  '<td><img src="' +
+                  data.photo +
+                  '"></td>' +
+                  "</tr>";
+              });
+              //<table>태그 내부에 추가한다.
+              $("#displayTable").append(str);
+            }
+          );
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h2>$.get()메소드 사용하기</h2>
+    <h3>JSON 파일 읽어오기</h3>
+    <button id="btnJSON">JSON데이터 읽어오기</button>
+    <table border="1" id="displayTable">
+      <tr>
+        <td>no</td>
+        <td>name</td>
+        <td>tel</td>
+        <td>photo</td>
+      </tr>
+    </table>
+  </body>
+</html>
